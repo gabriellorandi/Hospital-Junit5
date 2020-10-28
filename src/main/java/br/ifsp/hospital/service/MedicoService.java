@@ -81,6 +81,7 @@ public class MedicoService {
     public void menu() {
 
         boolean saida = false;
+        String crm;
 
         while (!saida) {
 
@@ -93,12 +94,13 @@ public class MedicoService {
                     scan.next();
                     break;
                 case 2:
-                    String crm = imprimirDigitarCrm();
+                    crm = imprimirDigitarCrm();
                     listarUm( Integer.parseInt(crm));
                     scan.next();
                     break;
                 case 3 :
-
+                    Medico medicoNovo = entradaMedico();
+                    getMedicos().add(medicoNovo);
                     break;
 
                 case 4 :
@@ -106,7 +108,8 @@ public class MedicoService {
                     break;
 
                 case 5 :
-
+                    crm = imprimirDigitarCrm();
+                    excluirMedico( Integer.parseInt(crm));
                     break;
                 case 6 :
                     saida = true;
@@ -151,15 +154,19 @@ public class MedicoService {
 
     public String imprimirDigitarCrm() {
 
-        System.out.println("Digite a CRM");
-        String crm = scan.next();
-        if(isNumerico(crm)){
-            return crm;
+        String crm = null;
+        while(crm == null) {
+
+            System.out.println("Digite a CRM");
+            crm = scan.next();
+            if(isNumerico(crm) && crm.length() == 6){
+                return crm;
+            }
+
+            System.out.println("Digite somente 6 numeros.");
+            scan.next();
         }
-
-        System.out.println("Digite somente numeros.");
         return null;
-
     }
 
     public void imprimirSubmenu() {
@@ -172,6 +179,12 @@ public class MedicoService {
         System.out.println("4- Alterar");
         System.out.println("5- Excluir");
         System.out.println("6- Voltar");
+
+    }
+
+    public void excluirMedico(Integer crm) {
+
+        medicos.removeIf( medico -> medico.getCrm().equals( crm ) );
 
     }
 

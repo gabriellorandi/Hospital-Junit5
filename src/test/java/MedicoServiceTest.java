@@ -22,7 +22,7 @@ public class MedicoServiceTest {
         medico.setCrm(crm);
         medico.setDataNascimento(ZonedDateTime.now());
         medico.setEspecialidade("Especialidade Teste");
-        medico.setSexo(Sexo.MASCULINO);
+        medico.setSexo((crm%2==0)?Sexo.MASCULINO:Sexo.FEMININO);
         medico.setNome("Nome teste");
         medico.setEmail("teste@teste.com.br");
         medico.setUniversidadeFormacao("IFSP");

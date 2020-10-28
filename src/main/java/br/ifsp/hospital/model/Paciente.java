@@ -4,7 +4,7 @@ import java.time.ZonedDateTime;
 
 public class Paciente {
 
-    private String cpf;
+    private Long cpf;
     private String nome;
     private String email;
     private String telefone;
@@ -12,11 +12,11 @@ public class Paciente {
     private Sexo sexo;
     private String planoSaude;
 
-    public String getCpf() {
+    public Long getCpf() {
         return cpf;
     }
 
-    public void setCpf(String cpf) {
+    public void setCpf(Long cpf) {
         this.cpf = cpf;
     }
 

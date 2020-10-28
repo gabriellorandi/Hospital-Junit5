@@ -40,6 +40,7 @@ public class Main {
                     medicoService.menu();
                     break;
                 case 2:
+                    pacienteService.menu();
                     break;
                 case 3:
                     saida = true;
