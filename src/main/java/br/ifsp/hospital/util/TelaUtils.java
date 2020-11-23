@@ -11,4 +11,6 @@ public class TelaUtils {
         return texto.matches("[0-9]+");
     }
 
+    public static boolean isEmail(String email) { return email.matches("[A-Z0-9._%+-]+@[A-Z0-9.-]+"); }
+
 }

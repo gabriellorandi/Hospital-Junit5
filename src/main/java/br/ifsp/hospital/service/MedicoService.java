@@ -2,13 +2,15 @@ package br.ifsp.hospital.service;
 
 import br.ifsp.hospital.model.Medico;
 import br.ifsp.hospital.model.Paciente;
+import br.ifsp.hospital.model.Sexo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static br.ifsp.hospital.util.TelaUtils.isNumerico;
-import static br.ifsp.hospital.util.TelaUtils.limparTela;
+import static br.ifsp.hospital.util.TelaUtils.*;
 
 public class MedicoService {
 
@@ -134,7 +136,7 @@ public class MedicoService {
         if(isNumerico(entrada)){
             medico.setCrm( Integer.parseInt(entrada) );
         } else {
-            System.out.println("CRM Invalida");
+            System.out.println("CRM Inválida!");
             return null;
         }
 
@@ -142,12 +144,52 @@ public class MedicoService {
         medico.setNome( scan.next() );
 
         System.out.println("Digite o email");
-        medico.setEmail( scan.next() );
+        String email = scan.next();
 
-        System.out.println("Digite a data de nascimento");
-//        medico.setDataNascimento( scan.next() );
+        if(isEmail(email)) {
+            medico.setEmail( email );
+        } else {
+            System.out.println("Email inválido");
+            return null;
+        }
 
-        System.out.println("Digite o sexo");
+        System.out.println("Digite a dia do nascimento (Ex: 11-02-2000) ");
+        String dataSring = scan.next();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        try {
+            medico.setDataNascimento( dateFormat.parse(dataSring) );
+        } catch (ParseException e) {
+            System.out.println("Data de nascimento inválido!");
+            return null;
+        }
+
+        System.out.println("Digite o sexo (M ou F): ");
+        String sexo = scan.next();
+
+        if(sexo.equals("M") || sexo.equals("m") ) {
+            medico.setSexo(Sexo.MASCULINO);
+        } else if (sexo.equals("F") || sexo.equals("f")) {
+            medico.setSexo(Sexo.FEMININO);
+        } else {
+            System.out.println("Sexo inválido!");
+            return null;
+        }
+
+        System.out.println("Especialidade ");
+        medico.setEspecialidade( scan.next() );
+
+
+        System.out.println("Universidade de Formação ");
+        medico.setUniversidadeFormacao( scan.next() );
+
+        System.out.println("Digite o telefone sem DDD (Ex: 33611691) ");
+        String telefone = scan.next();
+
+        if(telefone.length() > 9 || telefone.length() < 8) {
+            System.out.println("Telefone inválido");
+            return null;
+        }
 
         return medico;
 

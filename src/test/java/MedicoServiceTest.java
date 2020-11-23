@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -20,7 +21,7 @@ public class MedicoServiceTest {
 
         Medico medico = new Medico();
         medico.setCrm(crm);
-        medico.setDataNascimento(ZonedDateTime.now());
+        medico.setDataNascimento(new Date());
         medico.setEspecialidade("Especialidade Teste");
         medico.setSexo((crm%2==0)?Sexo.MASCULINO:Sexo.FEMININO);
         medico.setNome("Nome teste");

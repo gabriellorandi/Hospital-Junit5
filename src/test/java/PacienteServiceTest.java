@@ -5,6 +5,7 @@ import org.junit.jupiter.api.*;
 
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,7 +21,7 @@ public class PacienteServiceTest {
 
         Paciente paciente = new Paciente();
         paciente.setCpf(cpf);
-        paciente.setDataNascimento(ZonedDateTime.now());
+        paciente.setDataNascimento(new Date());
         paciente.setPlanoSaude("Unimed teste");
         paciente.setSexo((cpf%2==0)? Sexo.MASCULINO:Sexo.FEMININO);
         paciente.setNome("Nome teste");

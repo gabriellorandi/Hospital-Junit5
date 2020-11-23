@@ -1,14 +1,15 @@
 package br.ifsp.hospital.service;
 
-import br.ifsp.hospital.model.Medico;
 import br.ifsp.hospital.model.Paciente;
+import br.ifsp.hospital.model.Sexo;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import static br.ifsp.hospital.util.TelaUtils.isNumerico;
-import static br.ifsp.hospital.util.TelaUtils.limparTela;
+import static br.ifsp.hospital.util.TelaUtils.*;
 
 public class PacienteService {
 
@@ -132,12 +133,45 @@ public class PacienteService {
         paciente.setNome( scan.next() );
 
         System.out.println("Digite o email");
-        paciente.setEmail( scan.next() );
+        String email = scan.next();
+
+        if(isEmail(email)) {
+            paciente.setEmail( email );
+        } else {
+            System.out.println("Email inválido");
+            return null;
+        }
+
+        System.out.println("Digite o telefone sem DDD (Ex: 33611691) ");
+        String telefone = scan.next();
+
+        if(telefone.length() > 9 || telefone.length() < 8) {
+            System.out.println("Telefone inválido");
+            return null;
+        }
 
         System.out.println("Digite a data de nascimento");
-//        medico.setDataNascimento( scan.next() );
+        String dataString = scan.next();
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MMM-yyyy");
+        try {
+            paciente.setDataNascimento( dateFormat.parse(dataString) );
+        } catch (ParseException e) {
+            System.out.println("Data de nascimento inválido!");
+            return null;
+        }
 
         System.out.println("Digite o sexo");
+        String sexo = scan.next();
+
+        if(sexo.equals("M") || sexo.equals("m") ) {
+            paciente.setSexo(Sexo.MASCULINO);
+        } else if (sexo.equals("F") || sexo.equals("f")) {
+            paciente.setSexo(Sexo.FEMININO);
+        } else {
+            System.out.println("Sexo inválido!");
+            return null;
+        }
 
 
         System.out.println("Digite o Plano de Saúde");

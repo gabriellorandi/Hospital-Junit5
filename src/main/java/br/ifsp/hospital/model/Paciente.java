@@ -1,6 +1,6 @@
 package br.ifsp.hospital.model;
 
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 public class Paciente {
 
@@ -8,7 +8,7 @@ public class Paciente {
     private String nome;
     private String email;
     private String telefone;
-    private ZonedDateTime dataNascimento;
+    private Date dataNascimento;
     private Sexo sexo;
     private String planoSaude;
 
@@ -76,11 +76,11 @@ public class Paciente {
         this.telefone = telefone;
     }
 
-    public ZonedDateTime getDataNascimento() {
+    public Date getDataNascimento() {
         return dataNascimento;
     }
 
-    public void setDataNascimento(ZonedDateTime dataNascimento) {
+    public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
 
