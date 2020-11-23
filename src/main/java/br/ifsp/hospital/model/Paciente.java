@@ -12,6 +12,38 @@ public class Paciente {
     private Sexo sexo;
     private String planoSaude;
 
+    public void atualizar(Paciente paciente) {
+
+        if(paciente.getCpf() != null) {
+            this.cpf = paciente.getCpf();
+        }
+
+        if(paciente.getNome() != null) {
+            this.nome = paciente.getNome();
+        }
+
+        if(paciente.getEmail() != null) {
+            this.email = paciente.getEmail();
+        }
+
+        if(paciente.getTelefone() != null) {
+            this.telefone = paciente.getTelefone();
+        }
+
+        if(paciente.getDataNascimento() != null) {
+            this.dataNascimento = paciente.getDataNascimento();
+        }
+
+        if(paciente.getSexo() != null) {
+            this.sexo = paciente.getSexo();
+        }
+
+        if(paciente.getPlanoSaude() != null) {
+            this.planoSaude = paciente.getPlanoSaude();
+        }
+
+    }
+
     public Long getCpf() {
         return cpf;
     }
@@ -72,4 +104,6 @@ public class Paciente {
     public String toString() {
         return nome + " - " + cpf;
     }
+
+
 }

@@ -1,6 +1,7 @@
 package br.ifsp.hospital.service;
 
 import br.ifsp.hospital.model.Medico;
+import br.ifsp.hospital.model.Paciente;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,9 +105,9 @@ public class MedicoService {
                     break;
 
                 case 4 :
-
+                    Medico medicoAlterar = entradaMedico();
+                    alterar(medicoAlterar);
                     break;
-
                 case 5 :
                     crm = imprimirDigitarCrm();
                     excluirMedico( Integer.parseInt(crm));

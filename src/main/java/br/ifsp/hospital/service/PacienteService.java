@@ -54,8 +54,8 @@ public class PacienteService {
                     getPacientes().add(pacienteNovo);
                     break;
                 case 4 :
-
-
+                    Paciente pacienteAlterar = entradaPaciente();
+                    alterar(pacienteAlterar);
                     break;
                 case 5 :
                     cpf = imprimirDigitarCpf();
@@ -166,4 +166,41 @@ public class PacienteService {
 
     }
 
+    public Paciente incluir(Paciente paciente) {
+
+
+        if(listarUm( paciente.getCpf() ) == null) {
+            getPacientes().add(paciente);
+            return paciente;
+        }
+
+        return null;
+
+    }
+
+    public Paciente excluir(Paciente pacienteRemover) {
+
+        for (Paciente paciente : getPacientes()) {
+            if (paciente.equals(pacienteRemover)) {
+                getPacientes().remove(pacienteRemover);
+                return pacienteRemover;
+            }
+        }
+        return null;
+
+    }
+
+    public Paciente alterar(Paciente paciente) {
+
+        Paciente pacienteAlterar = listarUm( paciente.getCpf() );
+
+        if( pacienteAlterar != null) {
+            pacienteAlterar.atualizar(paciente);
+
+        }
+
+        return pacienteAlterar;
+
+
+    }
 }
