@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static br.ifsp.hospital.util.TelaUtils.*;
+import static br.ifsp.hospital.util.ValidationUtils.validarPaciente;
 
 public class PacienteService {
 
@@ -201,6 +202,10 @@ public class PacienteService {
     }
 
     public Paciente incluir(Paciente paciente) {
+
+        if(validarPaciente(paciente)) {
+            return null;
+        }
 
 
         if(listarUm( paciente.getCpf() ) == null) {

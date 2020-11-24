@@ -1,7 +1,6 @@
 package br.ifsp.hospital.service;
 
 import br.ifsp.hospital.model.Medico;
-import br.ifsp.hospital.model.Paciente;
 import br.ifsp.hospital.model.Sexo;
 
 import java.text.ParseException;
@@ -11,6 +10,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import static br.ifsp.hospital.util.TelaUtils.*;
+import static br.ifsp.hospital.util.ValidationUtils.validarMedico;
 
 public class MedicoService {
 
@@ -47,6 +47,10 @@ public class MedicoService {
     }
 
     public Medico incluir(Medico medico) {
+
+        if(validarMedico(medico)) {
+            return null;
+        }
 
         if(listarUm( medico.getCrm() ) == null) {
             getMedicos().add(medico);

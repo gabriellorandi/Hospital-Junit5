@@ -3,12 +3,11 @@ import br.ifsp.hospital.model.Sexo;
 import br.ifsp.hospital.service.MedicoService;
 import org.junit.jupiter.api.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class MedicoServiceTest {
@@ -16,6 +15,7 @@ public class MedicoServiceTest {
     public static final int TAMANHO_LISTA = 10;
 
     static MedicoService medicoService;
+    static List<Medico> medicoExpected;
 
     public static Medico construirMedico(Integer crm) {
 
@@ -27,7 +27,7 @@ public class MedicoServiceTest {
         medico.setNome("Nome teste");
         medico.setEmail("teste@teste.com.br");
         medico.setUniversidadeFormacao("IFSP");
-        medico.setTelefone("(16) 98771-2345");
+        medico.setTelefone("987712345");
 
         return medico;
 
@@ -38,12 +38,12 @@ public class MedicoServiceTest {
 
         medicoService = new MedicoService();
 
-        List<Medico> medicos = new ArrayList<>();
+        medicoExpected = new ArrayList<>();
         for (int index = 0; index < TAMANHO_LISTA; index++) {
-            medicos.add( construirMedico(100000 + index) );
+            medicoExpected.add( construirMedico(100000 + index) );
         }
 
-        medicoService.setMedicos(medicos);
+        medicoService.setMedicos(medicoExpected);
 
     }
 
@@ -53,7 +53,11 @@ public class MedicoServiceTest {
     void testeListarTodosSucesso() {
 
         List<Medico> medicos = medicoService.listarTodos();
-        assertEquals(TAMANHO_LISTA,medicos.size());
+
+        assertAll("Lista de medicos",
+                () -> assertEquals(TAMANHO_LISTA,medicos.size()),
+                () -> assertArrayEquals(medicoExpected.toArray(),medicos.toArray())
+        );
 
     }
 
@@ -76,8 +80,11 @@ public class MedicoServiceTest {
         Medico medico = medicos.get(0);
 
         Medico medicoTeste = medicoService.listarUm( medico.getCrm() );
-        assertEquals(medico.getCrm(),medicoTeste.getCrm());
 
+        assertAll("Sucesso para listar um medido",
+                () -> assertNotNull(medicoTeste),
+                () -> assertEquals(medico.getCrm(),medicoTeste.getCrm())
+        );
     }
 
     @Test
@@ -158,6 +165,44 @@ public class MedicoServiceTest {
 
         Medico medicoTeste = medicoService.alterar(medico);
         assertNull(medicoTeste);
+    }
+
+    @Test
+    @Order(11)
+    @DisplayName("Teste de sucesso para campos email e telefone de um medico")
+    void testeCamposMedicoSucesso() {
+
+        String telefone = "981185698";
+        String email = "medico@teste.com";
+
+        Medico medico = construirMedico(991239);
+        medico.setTelefone(telefone);
+        medico.setEmail(email);
+
+        Medico medicoTeste = medicoService.incluir(medico);
+        assertNotNull(medicoTeste);
+
+    }
+
+    @Test
+    @Order(12)
+    @DisplayName("Teste de falha para campos email e telefone de um medico")
+    void testeCamposMedicoFalha() {
+
+        String telefone = "9815698";
+
+        Medico medico = construirMedico(991239);
+        medico.setTelefone(telefone);
+
+        Medico medicoTeste = medicoService.incluir(medico);
+        assertNull(medicoTeste);
+
+        medico.setTelefone("987879568");
+        medico.setEmail("medico@");
+
+        medicoTeste = medicoService.incluir(medico);
+        assertNull(medicoTeste);
+
     }
 
 }
