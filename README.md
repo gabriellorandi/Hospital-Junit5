@@ -1,6 +1,10 @@
 ## TC1-Hospital
 
-O Projeto tem como objeto testar os métodos do CRUD de médico e paciente.  
+Um sistema simples de cadastro de médico e paciente com testes.
+
+## Objetivo
+
+Demostrar o conhecimento de testes unitários.
 
 ## Tecnológias utilizadas
 
