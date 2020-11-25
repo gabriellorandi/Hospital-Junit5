@@ -1,4 +1,4 @@
-## TC1-Hospital
+## Hospital-Junit5
 
 Um sistema simples de cadastro de médico e paciente com testes.
 
